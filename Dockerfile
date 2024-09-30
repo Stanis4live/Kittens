@@ -8,6 +8,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . /app/
 
+RUN chmod +x /app/entrypoint.sh
+
 EXPOSE 8000
 
-CMD echo "Running migrations..." && sleep 10 && python manage.py migrate && echo "Migrations completed" && python manage.py runserver 0.0.0.0:8000
+CMD ["/app/entrypoint.sh"]

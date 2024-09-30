@@ -12,13 +12,20 @@ services:
 
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+#    command: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --workers=2 --bind 0.0.0.0:8000 kittens.wsgi
+#    command: gunicorn --workers=2 --bind 0.0.0.0:8000 kittens.wsgi
+#    command: python manage.py collectstatic --noinput && gunicorn --workers=2 --bind 0.0.0.0:8000 kittens.wsgi
+
+
+
+
     volumes:
       - .:/app
     ports:
       - "8000:8000"
     depends_on:
       - db
+    restart: on-failure
     env_file:
       - .env
 
