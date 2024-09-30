@@ -21,3 +21,4 @@ dbdata/
 __pycache__/
 /venv/
 /.env
+/staticfiles/

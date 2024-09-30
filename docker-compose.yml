@@ -12,13 +12,6 @@ services:
 
   web:
     build: .
-#    command: python manage.py migrate && python manage.py collectstatic --noinput && gunicorn --workers=2 --bind 0.0.0.0:8000 kittens.wsgi
-#    command: gunicorn --workers=2 --bind 0.0.0.0:8000 kittens.wsgi
-#    command: python manage.py collectstatic --noinput && gunicorn --workers=2 --bind 0.0.0.0:8000 kittens.wsgi
-
-
-
-
     volumes:
       - .:/app
     ports:
