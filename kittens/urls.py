@@ -9,6 +9,7 @@ from rest_framework_simplejwt.views import (
 
 app_urls = [
     path('', include('user.api.urls')),
+    path('', include('exhibition.api.urls')),
 ]
 
 api_urls = [

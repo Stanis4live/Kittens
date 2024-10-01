@@ -1,5 +1,4 @@
 import os
-from email.policy import default
 from pathlib import Path
 from decouple import config
 from datetime import timedelta
@@ -29,7 +28,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    'user',
+    "user",
+    "exhibition",
 ]
 
 MIDDLEWARE = [
