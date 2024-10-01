@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from exhibition.api.v1.views import KittenReadOnlyViewSet, KittenManageViewSet
+from exhibition.api.v1.views import KittenReadOnlyViewSet, KittenManageViewSet, BreedLListView, RatingCreateView
 
 router = DefaultRouter()
 
@@ -9,5 +9,7 @@ router.register(r'manage-kittens', KittenManageViewSet, basename='manage-kittens
 
 
 urlpatterns = [
+    path('breeds/', BreedLListView.as_view(), name='breed-list'),
+    path('ratings/', RatingCreateView.as_view(), name='rating-create'),
     path('', include(router.urls)),
 ]

@@ -25,3 +25,15 @@ class Kitten(models.Model):
     def __str__(self):
         return f"{self.breed.name} - {self.color}"
 
+
+class Rating(models.Model):
+    kitten = models.ForeignKey(Kitten, on_delete=models.CASCADE, related_name="rating_scores", verbose_name="котёнок")
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="rating_scores", verbose_name="пользователь")
+    score = models.PositiveIntegerField(verbose_name="оценка", choices=[(i, str(i)) for i in range(1, 6)])
+
+    class Meta:
+        unique_together = ("kitten", "user")
+
+    def __str__(self):
+        return f"{self.kitten} - {self.score}"
+
