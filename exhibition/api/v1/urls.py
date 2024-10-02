@@ -10,6 +10,6 @@ router.register(r'manage-kittens', KittenManageViewSet, basename='manage-kittens
 
 urlpatterns = [
     path('breeds/', BreedLListView.as_view(), name='breed-list'),
-    path('ratings/', RatingCreateView.as_view(), name='rating-create'),
+    path('rating/', RatingCreateView.as_view(), name='rating-create'),
     path('', include(router.urls)),
 ]

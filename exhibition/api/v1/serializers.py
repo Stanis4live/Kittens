@@ -20,3 +20,9 @@ class RatingSerializer(serializers.ModelSerializer):
         model = Rating
         fields = ['id', 'kitten', 'user', 'score']
         read_only_fields = ['id', 'user']
+
+    def validate_kitten(self, value):
+        req = self.context.get('request')
+        if req.user == value.owner:
+            raise serializers.ValidationError('Нельзя ставить оценку своему питомцу')
+        return value
