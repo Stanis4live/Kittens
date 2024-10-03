@@ -1,11 +1,17 @@
+import os
 import pytest
 from rest_framework.test import APIClient
 from rest_framework import status
 from django.contrib.auth.models import User
 from django.urls import reverse
+from django.conf import settings
 
 from exhibition.models import Breed, Kitten
 
+
+@pytest.fixture(scope='session', autouse=True)
+def set_env():
+    os.environ['SKIP_MIGRATION_DATA'] = 'True'
 
 @pytest.fixture
 def api_client():
@@ -13,12 +19,12 @@ def api_client():
 
 @pytest.fixture
 def create_user():
-    return User.objects.create_user(username='owner', email='owner@example.com', password='testpassword')
+    return User.objects.create_user(username='Bob', email='owner@example.com', password='testpassword')
 
 @pytest.fixture
 def authenticate_user(api_client, create_user):
     response = api_client.post(reverse('token_obtain_pair'), {
-        'username':'owner',
+        'username':'Bob',
         'password':'testpassword'
     })
     token = response.data['access']
@@ -167,7 +173,9 @@ def test_rate_own_kitten_fail(api_client, authenticate_user, create_kitten):
 
 @pytest.mark.django_db
 def test_get_kittens_by_breed_filter(api_client, authenticate_user, create_breed, create_user):
-    another_breed = Breed.objects.create(name='Persian')
+    print(f"Database being used for tests: {settings.DATABASES['default']['NAME']}")
+    assert 'test_' in settings.DATABASES['default']['NAME'], "Tests should be using a test database"
+    another_breed = Breed.objects.create(name='Pers')
     persian_kitten = Kitten.objects.create(
         owner=create_user,
         breed=another_breed,
